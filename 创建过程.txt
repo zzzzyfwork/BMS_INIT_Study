@@ -1,0 +1,9 @@
+23/6/30
+1.调整结构
+	（32位） x86
+	具体目录:Assets Base Controls Models ViewModels Views
+	MainWindow.xaml 放入Views，修改Xmal class，删除Local，修改cs namespace   app.xaml startupUri
+2.设置主窗口属性(字体、起始位置、背景色) 窗口名字/边框（无）
+3.设计主窗口
+
+

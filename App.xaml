@@ -1,0 +1,9 @@
+﻿<Application x:Class="BMS_INIT.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BMS_INIT"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <FontFamily x:Key="IconFont">pack://application:,,,/BMS_INIT;component/Assets/Fonts/#iconfont</FontFamily>
+    </Application.Resources>
+</Application>
