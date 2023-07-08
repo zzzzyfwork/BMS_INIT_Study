@@ -19,6 +19,8 @@ namespace BMS_INIT.ViewModels
         public List<string> BatteryGroup { get; set; } = new List<string>();
         private object _pageObject;
 
+
+        public List<string> BatteryMessage { get; set; } = new List<string>();
        
 
 
@@ -41,6 +43,10 @@ namespace BMS_INIT.ViewModels
             for (int i = 0;i<100;i++)
             {
                 BatteryGroup.Add(i.ToString()); 
+            }
+            for (int i = 0;i<10;i++)
+            {
+                BatteryMessage.Add(i.ToString());
             }
         }
 

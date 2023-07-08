@@ -7,20 +7,7 @@
       mc:Ignorable="d" DataContext="{Binding}"
       d:DesignHeight="450" d:DesignWidth="800"
      >
-    <UserControl.Resources>
-        <!--设置阴影效果-->
-        <Style TargetType="Border" x:Key ="BoardStyle">
-            <Setter Property="Background" Value="AliceBlue"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="Effect" >
-                <Setter.Value>
-                    <DropShadowEffect BlurRadius="5" Color="Gray" Direction="0 " ShadowDepth="0" Opacity="0.2"/>
-                </Setter.Value>
-            </Setter>
-
-        </Style>
-    </UserControl.Resources>
+    
     
       
  <!--界面分成三行-->
@@ -177,12 +164,13 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"  />
                     <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="120"/>
                 </Grid.RowDefinitions>
                 <Border Background="Azure" Grid.ColumnSpan="2">
                     <TextBlock Text="电池组" FontSize="14" FontWeight="Bold" Margin="10,0" VerticalAlignment="Center"/>
               <!--状态标识符-->
                 </Border>
+                <Border Grid.Row="1" BorderBrush="#EEE" BorderThickness="0,0,1,0" Grid.RowSpan="2"/>
                 <StackPanel  Grid.Column=" 1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0">
                     <Border Background="#FF2BC766" Width="10" Height="10" CornerRadius="5" Margin="5,0" />
                     <TextBlock Text="状态" />
@@ -192,7 +180,10 @@
                     <TextBlock Text="状态"/>
                 </StackPanel>
                 
-                <ListBox Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding BatteryGroup}" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                
+                <!--listbox-->
+                <ListBox Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding BatteryGroup}" BorderThickness="0" 
+                         SelectedIndex="0" ScrollViewer.VerticalScrollBarVisibility="Hidden" Background="Transparent" Name="LB">
                <!--ListBoxItem模板 isselect与mouseover-->
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -225,9 +216,12 @@
                                     <ColumnDefinition Width="60"/>
                                     <ColumnDefinition Width="60"/>
                                 </Grid.ColumnDefinitions>
+                                
                                 <Border BorderBrush="#E7F9FA" BorderThickness="0,0,0,1" Grid.ColumnSpan="10" Margin="5,0"/>
                                 <Border Background="#FF2BC766" Width=" 10" Height="10" CornerRadius="6" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,11,0,0"/>
+                                
                                 <StackPanel Grid.Column=" 1" VerticalAlignment="Center">
+                                    
                                     <TextBlock Text="电池组" VerticalAlignment="Center" Margin="0,0,0,5"/>
                                     <TextBlock Text="{Binding}"/>
                                 </StackPanel>
@@ -252,7 +246,106 @@
                     
                 </ListBox>
 
+                <!--电芯集合-->
+                <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ElementName=LB,Path=SelectedItem}"  Margin="10">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="100" Width=" 60" Margin="5,5,5,3" TextBlock.FontSize="11">
+                                <Border Background="#882BC766" Height="8" CornerRadius="5,5,0,0" Width="27"
+                                        VerticalAlignment="Top"></Border>
+                                <Border Background="#882BC766" CornerRadius="5" Margin="0,8,0,0"/>
+                                <!--电池内部分行-->
+                                <Grid VerticalAlignment="Center" Margin="2,0" TextBlock.Foreground="White">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <!--电池序号-->
+                                    <TextBlock Text="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <!--电池电压-->
+                                    <Border Grid.Row="1" Background="#33000000" CornerRadius="3" Margin="0,2">
+                                        <Grid>
+                                            <TextBlock Text="2.22" Margin="1,0"/>
+                                            <TextBlock Text="V" HorizontalAlignment="Right" Margin="1,0"/>
+                                        </Grid>
+                                    </Border>
+                                        <!--电池电流-->
+                                    <Border Grid.Row="2" Background="#33000000" CornerRadius="3" Margin="0,2">
+                                        <Grid>
+                                            <TextBlock Text="0.25" Margin="1,0"/>
+                                            <TextBlock Text="A" HorizontalAlignment="Right" Margin="1,0"/>
+                                        </Grid>
+                                    </Border>
+                                    <!--电池soc-->
+                                    <Border Grid.Row="3" Background="#33000000" CornerRadius="3" Margin="0,2">
+                                        <Grid>
+                                            <TextBlock Text="95" Margin="1,0"/>
+                                            <TextBlock Text="%" HorizontalAlignment="Right" Margin="1,0"/>
+                                        </Grid>
+                                    </Border>
+                                    <!--详情-->
+                                    <TextBlock Grid.Row="4" HorizontalAlignment="Center" Margin="0,2">
+                                        <Hyperlink TextDecorations="None" Foreground="#FF1CB1F3" FontSize="10">详情</Hyperlink>
+                                    </TextBlock>
 
+                                </Grid>
+
+                            </Grid> 
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    
+                </ItemsControl>
+                
+                <!--消息列表-->
+                <GridSplitter Grid.Row=" 1" Grid.Column="1" VerticalAlignment="Bottom" Height="2" Background="#F7F9FA" HorizontalAlignment="Stretch" Margin="5,0"/>
+                    <!--使用方式的前提：数据量不大-->
+                <Grid  Grid.Row="2" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="消息日志" VerticalAlignment="Center" Margin="10,0" FontWeight="Bold"/>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0">
+                            <Hyperlink TextDecorations="None"  Foreground="#FF1CB1F3">查看详情</Hyperlink>
+                    </TextBlock>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" Margin="5,0,5,5">
+                        <ItemsControl ItemsSource="{Binding BatteryMessage}" AlternationCount="2">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!--斑马纹-->
+                                    <Border Height="22" Background="Transparent" Name="root" CornerRadius="11">
+                                        <Grid  >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width=" 120"/>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="50"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="2023-07-07-10:11:00" VerticalAlignment="Center" Foreground="#999"/>
+                                            <TextBlock Text="AA" VerticalAlignment="Center" Grid.Column="1"/>
+                                            <TextBlock Text="状态" VerticalAlignment="Center" Grid.Column="2" Foreground="#999"/>
+                                        </Grid>
+                                    </Border>
+                                    <DataTemplate.Triggers>
+                                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                            <Setter TargetName="root" Property="Background" Value="#11000000"/>
+                                        </Trigger>
+                                    </DataTemplate.Triggers>
+                                    
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    </Grid>
+                
             </Grid>
         </Border>
     </Grid>
