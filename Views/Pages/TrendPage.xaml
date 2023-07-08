@@ -7,8 +7,83 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
      >
+    <UserControl.Resources>
+        <Style TargetType="CheckBox" x:Key="SeriesItemStyle">
+            <Setter Property="Margin" Value="0,5,10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border Background="#08000000" Name="root" Height="23" CornerRadius="3" 
+                                TextBlock.Foreground="#555">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="24"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Width="10" Height="10" Background="White">
+                                    <Border Width="5" Height="5" Background="Gray" Name="bor" Visibility="Collapsed"/>
+                                </Border>
+                                <TextBlock Text="{Binding}" Grid.Column=" 1" VerticalAlignment="Center" Margin="0,0,15,0" Name="txt"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="root" Property="Background" Value="#FF1CB1F3"/>
+                                <Setter TargetName="txt" Property="TextBlock.Foreground" Value="White"/>
+                                <Setter TargetName="bor" Property="Visibility" Value="Visible"/>
 
-    <Grid>
-        
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                            
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="10,0,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="趋势曲线" FontSize=" 14" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center"/>
+        <Border Grid.Row="1" Style="{StaticResource BoardStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=" 45"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="#EEE" BorderThickness="0,0,0,1" Margin="5,0" Grid.ColumnSpan="2"/>
+                <TextBlock Text="组别" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#888"/>
+                <TextBlock Text="属性" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#888"/>
+
+                <ComboBox Grid.Column="1" Height="28" Width="150"  HorizontalAlignment="Left" 
+                          ItemsSource="{Binding BatteryGroup}" SelectedIndex="0"/>
+                <Button VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0 " Width=" 80" Height="28"
+                        Grid.Column="1" Content="保存图像" Style="{StaticResource NormalButtonStyle}" Background="Orange"/>
+                <ItemsControl Grid.Column="1" Grid.Row="1" Margin="0,5,0,0" ItemsSource="{Binding BatteryGroup}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        
+                        <DataTemplate>
+                            <CheckBox/>
+
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Border>
+
     </Grid>
 </UserControl>

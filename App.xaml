@@ -4,6 +4,27 @@
              xmlns:local="clr-namespace:BMS_INIT"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-        <FontFamily x:Key="IconFont">pack://application:,,,/BMS_INIT;component/Assets/Fonts/#iconfont</FontFamily>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/BMS_INIT;component/Assets/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary>
+                    <FontFamily x:Key="IconFont">pack://application:,,,/BMS_INIT;component/Assets/Fonts/#iconfont</FontFamily>
+                    <Style TargetType="Border" x:Key ="BoardStyle">
+                        <Setter Property="Background" Value="AliceBlue"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="CornerRadius" Value="5"/>
+                        <Setter Property="Effect" >
+                            <Setter.Value>
+                                <DropShadowEffect BlurRadius="5" Color="Gray" Direction="0 " ShadowDepth="0" Opacity="0.2"/>
+                            </Setter.Value>
+                        </Setter>
+                     </Style>
+                </ResourceDictionary>
+                <ResourceDictionary Source="pack://application:,,,/BMS_INIT;component/Assets/Styles/ComboBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
+                
+            
+        
